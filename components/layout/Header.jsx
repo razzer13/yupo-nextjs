@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Icon from '../ui/Icon';
 import { useCart } from './CartContext';
-import { CATEGORIES } from '../../lib/utils';
 import { PRODUCTS } from '../../lib/products';
 
 function SearchBox() {
@@ -36,31 +35,30 @@ function SearchBox() {
   const go = (val) => { setQ(val); setShow(false); router.push(`/cautare?q=${encodeURIComponent(val)}`); };
 
   return (
-    <div ref={ref} style={{ flex:1, position:'relative', maxWidth:640 }}>
-      <div style={{ display:'flex', border:'2px solid var(--g)', borderRadius:9,
-        overflow:'hidden', background:'white' }}>
+    <div ref={ref} style={{ flex:1, position:'relative', maxWidth:620 }}>
+      <div style={{ display:'flex', border:'2px solid var(--g)', borderRadius:9, overflow:'hidden', background:'white', height:46 }}>
         <button style={{ background:'none', border:'none', borderRight:'1px solid var(--border)',
-          padding:'0 13px', color:'var(--text3)', display:'flex', alignItems:'center',
-          cursor:'pointer' }}>
-          <Icon name="camera" size={16} color="currentColor"/>
+          padding:'0 13px', color:'var(--text3)', display:'flex', alignItems:'center', cursor:'pointer', flexShrink:0 }}
+          title="Caută după imagine">
+          <Icon name="camera" size={17} color="currentColor"/>
         </button>
-        <input style={{ flex:1, border:'none', outline:'none', padding:'10px 14px',
-          fontSize:14, color:'var(--text)', background:'transparent' }}
+        <input style={{ flex:1, border:'none', outline:'none', padding:'0 14px',
+          fontSize:14, color:'var(--text)', background:'transparent', minWidth:0 }}
           placeholder="Caută parfumuri, șampoane, creme..."
           value={q} onChange={e => handleChange(e.target.value)}
           onFocus={() => suggestions.length && setShow(true)}
           onKeyDown={e => e.key === 'Enter' && go(q)}/>
         <button onClick={() => go(q)}
           style={{ background:'var(--g)', border:'none', padding:'0 22px',
-            display:'flex', alignItems:'center', color:'white',
-            cursor:'pointer', transition:'background .2s' }}>
-          <Icon name="search" size={17} color="white"/>
+            display:'flex', alignItems:'center', color:'white', cursor:'pointer',
+            transition:'background .2s', flexShrink:0 }}>
+          <Icon name="search" size={18} color="white"/>
         </button>
       </div>
       {show && suggestions.length > 0 && (
         <div style={{ position:'absolute', top:'calc(100% + 6px)', left:0, right:0,
           background:'white', borderRadius:10, boxShadow:'0 8px 32px rgba(0,0,0,.15)',
-          border:'1.5px solid var(--border)', zIndex:800, overflow:'hidden' }}>
+          border:'1.5px solid var(--border)', zIndex:900, overflow:'hidden' }}>
           <div style={{ padding:'7px 14px 5px', fontSize:10, fontWeight:700,
             color:'var(--text3)', textTransform:'uppercase', letterSpacing:'.08em',
             borderBottom:'1px solid var(--border)' }}>
@@ -69,9 +67,7 @@ function SearchBox() {
           {suggestions.map(p => (
             <div key={p.id} onClick={() => go(p.name)}
               style={{ display:'flex', alignItems:'center', gap:12, padding:'9px 14px',
-                cursor:'pointer', transition:'background .12s', borderBottom:'1px solid #f5f5f5' }}
-              onMouseEnter={e => e.currentTarget.style.background='var(--g3)'}
-              onMouseLeave={e => e.currentTarget.style.background='white'}>
+                cursor:'pointer', borderBottom:'1px solid #f5f5f5', background:'white' }}>
               <div style={{ width:36, height:36, borderRadius:8, background:'#f5f5f5',
                 border:'1px solid var(--border)', overflow:'hidden', flexShrink:0,
                 display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -109,104 +105,98 @@ export default function Header() {
       boxShadow:'0 2px 8px rgba(0,0,0,.08)', borderBottom:'2px solid var(--g)' }}>
 
       {/* Topbar */}
-      <div style={{ background:'var(--g)', color:'rgba(255,255,255,.85)', fontSize:12, padding:'5px 0' }}>
-        <div style={{ padding:'0 20px',
-          display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+      <div style={{ background:'var(--g)', color:'rgba(255,255,255,.85)', fontSize:12 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center',
+          padding:'5px 24px' }}>
           <div style={{ display:'flex', alignItems:'center', gap:16 }}>
             <a href="tel:+40787301034" style={{ color:'inherit', textDecoration:'none',
               display:'flex', alignItems:'center', gap:5 }}>
               <Icon name="phone" size={12} color="currentColor"/>+40 787 301 034
             </a>
-            <span style={{ opacity:.4 }}>|</span>
+            <span style={{ opacity:.35 }}>|</span>
             <a href="mailto:contact@yupo.ro" style={{ color:'inherit', textDecoration:'none',
               display:'flex', alignItems:'center', gap:5 }}>
               <Icon name="mail" size={12} color="currentColor"/>contact@yupo.ro
             </a>
-            <span style={{ opacity:.4 }}>|</span>
+            <span style={{ opacity:.35 }}>|</span>
             <span style={{ display:'flex', alignItems:'center', gap:5 }}>
               <Icon name="clock" size={12} color="currentColor"/>L-D 9:00–21:00
             </span>
           </div>
-          <div style={{ display:'flex', alignItems:'center', gap:16 }}>
+          <div style={{ display:'flex', alignItems:'center', gap:14 }}>
             <Link href="/admin" style={{ color:'inherit', textDecoration:'none',
               display:'flex', alignItems:'center', gap:5, background:'rgba(255,255,255,.15)',
               padding:'3px 12px', borderRadius:4, fontWeight:600 }}>
               <Icon name="shield" size={12} color="currentColor"/>Admin Panel
             </Link>
-            <span style={{ opacity:.4 }}>|</span>
+            <span style={{ opacity:.35 }}>|</span>
             <Link href="/b2b" style={{ color:'inherit', textDecoration:'none' }}>B2B</Link>
-            <span style={{ opacity:.4 }}>|</span>
+            <span style={{ opacity:.35 }}>|</span>
             <span>RO</span>
-            <span style={{ opacity:.4 }}>|</span>
+            <span style={{ opacity:.35 }}>|</span>
             <span>RON</span>
           </div>
         </div>
       </div>
 
-      {/* Main header */}
-      <div style={{ padding:'10px 20px',
-        display:'flex', alignItems:'center', gap:20 }}>
+      {/* Main header - Logo stanga, Search centrat, Butoane dreapta */}
+      <div style={{ display:'flex', alignItems:'center', gap:20, padding:'10px 24px' }}>
 
-        {/* Logo */}
+        {/* Logo - STANGA */}
         <Link href="/" style={{ textDecoration:'none', display:'flex',
-          alignItems:'center', gap:10, flexShrink:0 }}>
-          <div style={{ width:42, height:42, background:'var(--g)', borderRadius:10,
-            display:'flex', alignItems:'center', justifyContent:'center' }}>
-            <Icon name="sparkles" size={22} color="white"/>
+          alignItems:'center', gap:10, flexShrink:0, minWidth:160 }}>
+          <div style={{ width:44, height:44, background:'var(--g)', borderRadius:10,
+            display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+            <Icon name="sparkles" size={24} color="white"/>
           </div>
           <div>
-            <div style={{ fontSize:22, fontWeight:800, color:'var(--g)',
+            <div style={{ fontSize:24, fontWeight:800, color:'var(--g)',
               letterSpacing:'-.03em', lineHeight:1 }}>YUPO</div>
             <div style={{ fontSize:10, color:'var(--text3)', fontWeight:400 }}>beauty & parfumuri</div>
           </div>
         </Link>
 
-        {/* Search */}
-        <SearchBox/>
+        {/* Search - CENTRAT */}
+        <div style={{ flex:1, display:'flex', justifyContent:'center' }}>
+          <SearchBox/>
+        </div>
 
-        {/* Actions */}
-        <div style={{ display:'flex', alignItems:'center', gap:4, flexShrink:0 }}>
-          <Link href="/reduceri" style={{ textDecoration:'none',
-            border:'2px solid var(--red)', color:'var(--red)',
-            borderRadius:20, padding:'7px 15px', fontSize:13, fontWeight:700,
-            display:'flex', alignItems:'center', gap:6, transition:'all .2s' }}
-            onMouseEnter={e => { e.currentTarget.style.background='var(--red)'; e.currentTarget.style.color='white'; }}
-            onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--red)'; }}>
+        {/* Butoane - DREAPTA */}
+        <div style={{ display:'flex', alignItems:'center', gap:6, flexShrink:0, minWidth:280, justifyContent:'flex-end' }}>
+
+          <Link href="/reduceri"
+            style={{ textDecoration:'none', border:'2px solid var(--red)', color:'var(--red)',
+              borderRadius:20, padding:'8px 16px', fontSize:13, fontWeight:700,
+              display:'flex', alignItems:'center', gap:6, whiteSpace:'nowrap' }}>
             <Icon name="percent" size={13} color="currentColor"/>Reduceri
           </Link>
 
-          <Link href="/auth" style={{ textDecoration:'none', display:'flex',
-            flexDirection:'column', alignItems:'center', gap:3,
-            color:'var(--text2)', padding:'6px 10px', borderRadius:8,
-            transition:'all .2s', fontSize:11, fontWeight:500 }}
-            onMouseEnter={e => { e.currentTarget.style.background='var(--g3)'; e.currentTarget.style.color='var(--g)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--text2)'; }}>
-            <Icon name="user" size={20} color="currentColor"/>
+          <Link href="/auth"
+            style={{ textDecoration:'none', display:'flex', flexDirection:'column',
+              alignItems:'center', gap:2, color:'var(--text2)', padding:'6px 10px',
+              borderRadius:8, fontSize:11, fontWeight:500, whiteSpace:'nowrap' }}>
+            <Icon name="user" size={22} color="currentColor"/>
             Contul meu
           </Link>
 
-          <Link href="/wishlist" style={{ textDecoration:'none', display:'flex',
-            flexDirection:'column', alignItems:'center', gap:3,
-            color:'var(--text2)', padding:'6px 10px', borderRadius:8,
-            transition:'all .2s', fontSize:11, fontWeight:500 }}
-            onMouseEnter={e => { e.currentTarget.style.background='var(--g3)'; e.currentTarget.style.color='var(--g)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--text2)'; }}>
-            <Icon name="heart" size={20} color="currentColor"/>
+          <Link href="/wishlist"
+            style={{ textDecoration:'none', display:'flex', flexDirection:'column',
+              alignItems:'center', gap:2, color:'var(--text2)', padding:'6px 10px',
+              borderRadius:8, fontSize:11, fontWeight:500 }}>
+            <Icon name="heart" size={22} color="currentColor"/>
             Favorite
           </Link>
 
           <button onClick={() => setCartOpen(true)}
             style={{ background:'var(--g)', color:'white', border:'none',
-              borderRadius:9, padding:'9px 18px', fontSize:13, fontWeight:700,
+              borderRadius:9, padding:'10px 20px', fontSize:13, fontWeight:700,
               display:'flex', alignItems:'center', gap:8, cursor:'pointer',
-              position:'relative', transition:'background .2s' }}
-            onMouseEnter={e => e.currentTarget.style.background='var(--g2)'}
-            onMouseLeave={e => e.currentTarget.style.background='var(--g)'}>
-            <Icon name="cart" size={17} color="white"/>
+              position:'relative', whiteSpace:'nowrap' }}>
+            <Icon name="cart" size={18} color="white"/>
             Coș
             {cartCount > 0 && (
               <span style={{ position:'absolute', top:-6, right:-6,
-                background:'var(--red)', color:'white', width:18, height:18,
+                background:'var(--red)', color:'white', width:19, height:19,
                 borderRadius:'50%', fontSize:10, fontWeight:700,
                 display:'flex', alignItems:'center', justifyContent:'center',
                 border:'2px solid white' }}>{cartCount}</span>
