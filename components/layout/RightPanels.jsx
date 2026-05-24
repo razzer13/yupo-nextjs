@@ -79,16 +79,46 @@ export function FeaturedProductPanel() {
 
 // ─── Newsletter Panel ─────────────────────────────────────────────
 export function NewsletterPanel() {
-  const { newsletterTitle, newsletterDesc, addSubscriber } = useFeatured();
+  const { newsletterTitle, newsletterDesc, addSubscriber, subscribers, removeSubscriber } = useFeatured();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [done, setDone] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [err, setErr] = useState('');
+
+  // Verificam daca emailul curent e deja abonat (din localStorage)
+  const [savedEmail, setSavedEmail] = useState('');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('yupo_my_email');
+    if (saved) setSavedEmail(saved);
+  }, []);
+
+  const isSubscribed = savedEmail && subscribers.some(s => s.email === savedEmail);
+  const mySubscription = subscribers.find(s => s.email === savedEmail);
 
   const handleSubmit = () => {
     if (!email.includes('@')) { setErr('Email invalid!'); return; }
+    const already = subscribers.some(s => s.email === email);
+    if (already) {
+      setSavedEmail(email);
+      localStorage.setItem('yupo_my_email', email);
+      setSubmitted(true);
+      return;
+    }
     addSubscriber(email, name);
-    setDone(true);
+    localStorage.setItem('yupo_my_email', email);
+    setSavedEmail(email);
+    setSubmitted(true);
+  };
+
+  const handleUnsubscribe = () => {
+    if (mySubscription) {
+      removeSubscriber(mySubscription.id);
+      localStorage.removeItem('yupo_my_email');
+      setSavedEmail('');
+      setSubmitted(false);
+      setEmail('');
+    }
   };
 
   return (
@@ -97,38 +127,78 @@ export function NewsletterPanel() {
       {/* Header */}
       <div style={{ background:'linear-gradient(135deg,#1565c0,#1976d2)',
         padding:'9px 14px', display:'flex', alignItems:'center', gap:7 }}>
-        <span style={{ fontSize:14 }}>📧</span>
+        <Icon name="mail" size={13} color="white"/>
         <span style={{ color:'white', fontWeight:700, fontSize:12 }}>Newsletter</span>
       </div>
 
       <div style={{ padding:'14px 12px' }}>
-        {done ? (
-          <div style={{ textAlign:'center', padding:'10px 0' }}>
+        {/* Deja abonat */}
+        {isSubscribed ? (
+          <div style={{ textAlign:'center' }}>
+            <div style={{ width:44, height:44, background:'var(--g3)', borderRadius:'50%',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              margin:'0 auto 10px', border:'2px solid #c8e6c9' }}>
+              <Icon name="check" size={22} color="var(--g)"/>
+            </div>
+            <div style={{ fontWeight:700, fontSize:13, color:'var(--g)', marginBottom:5 }}>
+              Ești deja abonat!
+            </div>
+            <div style={{ fontSize:11, color:'var(--text2)', lineHeight:1.5, marginBottom:10 }}>
+              {savedEmail}
+            </div>
+            <div style={{ background:'#fff8e1', border:'1px solid #ffe082', borderRadius:8,
+              padding:'8px 12px', marginBottom:12 }}>
+              <div style={{ fontSize:10, color:'#b8860b', fontWeight:700, marginBottom:3 }}>
+                CODUL TĂU DE REDUCERE
+              </div>
+              <div style={{ fontSize:18, fontWeight:800, color:'#e65100', letterSpacing:'.1em' }}>
+                YUP015
+              </div>
+              <div style={{ fontSize:10, color:'var(--text3)' }}>10% reducere la orice comandă</div>
+            </div>
+            <button onClick={handleUnsubscribe}
+              style={{ background:'none', border:'1px solid rgba(229,57,53,.3)',
+                color:'var(--red)', borderRadius:7, padding:'7px 14px',
+                fontSize:11, fontWeight:600, cursor:'pointer', width:'100%' }}>
+              Dezabonare
+            </button>
+          </div>
+        ) : submitted ? (
+          /* Tocmai s-a abonat */
+          <div style={{ textAlign:'center' }}>
             <div style={{ fontSize:32, marginBottom:8 }}>🎉</div>
-            <div style={{ fontWeight:700, fontSize:13, color:'var(--g)', marginBottom:6 }}>
+            <div style={{ fontWeight:700, fontSize:13, color:'var(--g)', marginBottom:5 }}>
               Mulțumim că te-ai abonat!
             </div>
+            <div style={{ background:'#fff8e1', border:'1px solid #ffe082', borderRadius:8,
+              padding:'10px 12px', marginBottom:10 }}>
+              <div style={{ fontSize:10, color:'#b8860b', fontWeight:700, marginBottom:3 }}>
+                CODUL TĂU DE REDUCERE
+              </div>
+              <div style={{ fontSize:20, fontWeight:800, color:'#e65100', letterSpacing:'.1em' }}>
+                YUP015
+              </div>
+              <div style={{ fontSize:10, color:'var(--text3)' }}>10% reducere la prima comandă</div>
+            </div>
             <div style={{ fontSize:11, color:'var(--text3)', lineHeight:1.5 }}>
-              Vei primi în curând un email cu codul tău de reducere.
+              Folosește codul la checkout!
             </div>
           </div>
         ) : (
+          /* Formular abonare */
           <>
             <div style={{ fontWeight:700, fontSize:13, marginBottom:5 }}>{newsletterTitle}</div>
             <p style={{ fontSize:11, color:'var(--text2)', lineHeight:1.5, marginBottom:12 }}>
               {newsletterDesc}
             </p>
-            <input
-              value={name} onChange={e => setName(e.target.value)}
+            <input value={name} onChange={e => setName(e.target.value)}
               placeholder="Numele tău (opțional)"
               style={{ width:'100%', border:'1.5px solid var(--border)', borderRadius:8,
                 padding:'8px 11px', fontSize:12, outline:'none', marginBottom:7,
                 color:'var(--text)', boxSizing:'border-box' }}/>
-            <input
-              value={email} onChange={e => { setEmail(e.target.value); setErr(''); }}
-              placeholder="Email-ul tău *"
-              type="email"
-              style={{ width:'100%', border:`1.5px solid ${err ? 'var(--red)' : 'var(--border)'}`,
+            <input value={email} onChange={e => { setEmail(e.target.value); setErr(''); }}
+              placeholder="Email-ul tău *" type="email"
+              style={{ width:'100%', border:`1.5px solid ${err?'var(--red)":'var(--border)'}`,
                 borderRadius:8, padding:'8px 11px', fontSize:12, outline:'none',
                 marginBottom:7, color:'var(--text)', boxSizing:'border-box' }}/>
             {err && <div style={{ fontSize:11, color:'var(--red)', marginBottom:7 }}>{err}</div>}

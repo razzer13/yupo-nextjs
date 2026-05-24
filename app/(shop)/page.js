@@ -35,8 +35,8 @@ function CatIcon({ name, color }) {
 
 function CategoriesMenu() {
   return (
-    <div style={{ width:210, flexShrink:0, background:'white',
-      border:'1px solid var(--border)', borderRadius:10, overflow:'hidden',
+    <div className="grad-border" style={{ width:210, flexShrink:0, background:'white',
+      borderRadius:10, overflow:'hidden',
       boxShadow:'var(--shadow)', display:'flex', flexDirection:'column' }}>
       <div style={{ background:'var(--g)', padding:'11px 14px',
         display:'flex', alignItems:'center', gap:8 }}>
@@ -57,13 +57,7 @@ function CategoriesMenu() {
           </Link>
         ))}
       </div>
-      <Link href="/categorii"
-        style={{ display:'flex', alignItems:'center', justifyContent:'center',
-          padding:'9px 14px', textDecoration:'none', color:'var(--g)',
-          fontSize:12, fontWeight:700, background:'var(--g3)',
-          borderTop:'1px solid var(--border)', flexShrink:0 }}>
-        Vezi toate categoriile →
-      </Link>
+
     </div>
   );
 }

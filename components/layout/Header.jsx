@@ -164,11 +164,8 @@ export default function Header() {
         {/* Butoane - DREAPTA */}
         <div style={{ display:'flex', alignItems:'center', gap:6, flexShrink:0, minWidth:280, justifyContent:'flex-end' }}>
 
-          <Link href="/reduceri"
-            style={{ textDecoration:'none', border:'2px solid var(--red)', color:'var(--red)',
-              borderRadius:20, padding:'8px 16px', fontSize:13, fontWeight:700,
-              display:'flex', alignItems:'center', gap:6, whiteSpace:'nowrap' }}>
-            <Icon name="percent" size={13} color="currentColor"/>Reduceri
+          <Link href="/reduceri" className="reduceri-animated">
+            <Icon name="percent" size={13} color="var(--red)"/>Reduceri
           </Link>
 
           <Link href="/auth"

@@ -225,3 +225,57 @@ footer { background: #1a1a2e; color: rgba(255,255,255,.72); margin-top: 40px; }
   .cart-drawer { width: 100vw !important; }
   .footer-grid { grid-template-columns: 1fr 1fr !important; }
 }
+
+/* ── Animated gradient border ────────────────────────────────────── */
+@keyframes borderRotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.grad-border {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+}
+
+.grad-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2e7d32, #69f0ae, #00bcd4, #2e7d32, #a5d6a7);
+  background-size: 300% 300%;
+  animation: borderRotate 3s ease infinite;
+  z-index: -1;
+}
+
+/* Buton Reduceri cu border animat */
+.reduceri-animated {
+  position: relative;
+  background: white !important;
+  color: var(--red) !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  text-decoration: none !important;
+  z-index: 0 !important;
+  white-space: nowrap !important;
+}
+
+.reduceri-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #e53935, #ff8f00, #e53935, #ff5722, #e53935);
+  background-size: 300% 300%;
+  animation: borderRotate 2s ease infinite;
+  z-index: -1;
+}
+
