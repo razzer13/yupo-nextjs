@@ -1,4 +1,5 @@
 import { AdminProvider } from '../../components/admin/AdminProductsContext';
+import { FeaturedProvider } from '../../components/layout/FeaturedContext';
 import AdminLayout from '../../components/admin/AdminLayout';
 
 export const metadata = {
@@ -9,7 +10,9 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <AdminProvider>
-      <AdminLayout>{children}</AdminLayout>
+      <FeaturedProvider>
+        <AdminLayout>{children}</AdminLayout>
+      </FeaturedProvider>
     </AdminProvider>
   );
 }
