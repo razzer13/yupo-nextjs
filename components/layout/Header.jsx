@@ -110,7 +110,7 @@ export default function Header() {
 
       {/* Topbar */}
       <div style={{ background:'var(--g)', color:'rgba(255,255,255,.85)', fontSize:12, padding:'5px 0' }}>
-        <div style={{ maxWidth:1400, margin:'0 auto', padding:'0 16px',
+        <div style={{ padding:'0 20px',
           display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <div style={{ display:'flex', alignItems:'center', gap:16 }}>
             <a href="tel:+40787301034" style={{ color:'inherit', textDecoration:'none',
@@ -144,7 +144,7 @@ export default function Header() {
       </div>
 
       {/* Main header */}
-      <div style={{ maxWidth:1400, margin:'0 auto', padding:'10px 16px',
+      <div style={{ padding:'10px 20px',
         display:'flex', alignItems:'center', gap:20 }}>
 
         {/* Logo */}
