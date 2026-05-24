@@ -25,9 +25,7 @@ function CategoriesMenu() {
           style={{ display:'flex', alignItems:'center', justifyContent:'space-between',
             padding:'10px 16px', textDecoration:'none', color:'var(--text)',
             fontSize:13, fontWeight:500, borderBottom:'1px solid #f5f5f5',
-            transition:'all .15s' }}
-          onMouseEnter={e => { e.currentTarget.style.background='var(--g3)'; e.currentTarget.style.color='var(--g)'; e.currentTarget.style.paddingLeft='20px'; }}
-          onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--text)'; e.currentTarget.style.paddingLeft='16px'; }}>
+            transition:'all .15s' }}}}>
           <div style={{ display:'flex', alignItems:'center', gap:10 }}>
             <span style={{ fontSize:16 }}>{cat.icon}</span>
             {cat.name}
@@ -113,9 +111,7 @@ function RightPanel() {
           <Link href="/auth" style={{ flex:1, border:'1.5px solid var(--g)', color:'var(--g)',
             borderRadius:8, padding:'9px 0', fontSize:12, fontWeight:700,
             textDecoration:'none', display:'flex', alignItems:'center',
-            justifyContent:'center', gap:5, transition:'all .2s' }}
-            onMouseEnter={e => { e.currentTarget.style.background='var(--g3)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background='none'; }}>
+            justifyContent:'center', gap:5, transition:'all .2s' }}}}>
             <Icon name="user" size={12} color="currentColor"/>Autentificare
           </Link>
           <Link href="/auth?tab=register" style={{ flex:1, background:'var(--g)', color:'white',
@@ -140,9 +136,7 @@ function RightPanel() {
             <Link key={p.id} href={`/produs/${p.slug}`}
               style={{ display:'flex', gap:10, padding:'10px 12px',
                 textDecoration:'none', borderBottom:'1px solid #f5f5f5',
-                transition:'background .15s' }}
-              onMouseEnter={e => e.currentTarget.style.background='#fafafa'}
-              onMouseLeave={e => e.currentTarget.style.background='white'}>
+                transition:'background .15s' }}>
               <div style={{ width:44, height:44, borderRadius:7, background:'#f5f5f5',
                 border:'1px solid var(--border)', overflow:'hidden', flexShrink:0 }}>
                 {p.image && <img src={p.image} alt={p.name}
@@ -190,9 +184,7 @@ function CategoriesGrid() {
           <Link key={cat.slug} href={`/${cat.slug}`}
             style={{ textDecoration:'none', background:'white',
               border:'1.5px solid var(--border)', borderRadius:10, overflow:'hidden',
-              transition:'all .22s', boxShadow:'var(--shadow)', display:'block' }}
-            onMouseEnter={e => { e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.borderColor=cat.color; e.currentTarget.style.boxShadow='0 6px 18px rgba(0,0,0,.1)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.boxShadow='var(--shadow)'; }}>
+              transition:'all .22s', boxShadow:'var(--shadow)', display:'block' }}}}>
             <div style={{ background:cat.bg, height:90, display:'flex',
               alignItems:'center', justifyContent:'center' }}>
               <span style={{ fontSize:42 }}>{cat.icon}</span>
