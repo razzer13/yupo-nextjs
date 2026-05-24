@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { CATEGORIES, getFeaturedProducts, getSaleProducts, getProductsByCategory, SITE_NAME } from '../lib/utils';
-import ProductCard from '../components/shop/ProductCard';
-import Icon from '../components/ui/Icon';
+import { CATEGORIES, getFeaturedProducts, getSaleProducts, getProductsByCategory, SITE_NAME } from '../../lib/utils';
+import ProductCard from '../../components/shop/ProductCard';
+import Icon from '../../components/ui/Icon';
 
 export const metadata = {
   title: `${SITE_NAME} – Parfumuri Arabești Autentice & Beauty | Livrare 1-2 Zile România`,

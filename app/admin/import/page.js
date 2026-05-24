@@ -445,7 +445,7 @@ export default function ImportAdmin() {
                         <td style={{padding:'9px 12px'}}>
                           {ok
                             ?<span style={{color:'var(--g)',fontSize:11,fontWeight:700,display:'flex',alignItems:'center',gap:4}}>
-                                <Icon name="check" size:11 color="var(--g)"/>OK
+                                <Icon name="check" size={11} color="var(--g)"/>OK
                               </span>
                             :<span style={{color:'var(--red)',fontSize:11,fontWeight:700}}>Eroare</span>}
                         </td>

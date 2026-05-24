@@ -189,7 +189,7 @@ export default function ComenziAdmin() {
               <span style={{ fontWeight:800,fontSize:18,color:'var(--g)' }}>{selected.id}</span>
               <button onClick={()=>setSelected(null)}
                 style={{ background:'none',border:'none',cursor:'pointer',color:'var(--text3)' }}>
-                <Icon name="x" size:18 color="currentColor"/>
+                <Icon name="x" size={18} color="currentColor"/>
               </button>
             </div>
             {[
