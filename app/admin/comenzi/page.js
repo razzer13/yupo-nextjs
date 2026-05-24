@@ -1,4 +1,4 @@
-'use client';
+'use client'; 
 import { useState, useMemo } from 'react';
 import { useAdmin } from '../../../components/admin/AdminProductsContext';
 import Icon from '../../../components/ui/Icon';
