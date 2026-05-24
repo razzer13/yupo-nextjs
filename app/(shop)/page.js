@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { CATEGORIES, getSaleProducts, getProductsByCategory, SITE_NAME } from '../../lib/utils';
 import ProductCard from '../../components/shop/ProductCard';
 import Icon from '../../components/ui/Icon';
+import CategoriesMenuClient from '../../components/layout/CategoriesMenuClient';
 import RightPanel from '../../components/layout/RightPanel';
 
 export const metadata = {
@@ -191,7 +192,7 @@ export default function HomePage() {
   return (
     <div style={{ animation:'fadeIn .28s ease' }}>
       <div style={{ display:'flex', gap:12, marginBottom:18, alignItems:'stretch', minHeight:380 }}>
-        <CategoriesMenu/>
+        <CategoriesMenuClient/>
         <HeroBanner/>
         <RightPanel/>
       </div>

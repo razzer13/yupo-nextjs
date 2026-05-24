@@ -253,8 +253,8 @@ footer { background: #1a1a2e; color: rgba(255,255,255,.72); margin-top: 40px; }
 /* Buton Reduceri cu border animat */
 .reduceri-animated {
   position: relative;
-  background: white !important;
-  color: var(--red) !important;
+  background: transparent !important;
+  color: white !important;
   border: none !important;
   border-radius: 20px !important;
   padding: 8px 16px !important;

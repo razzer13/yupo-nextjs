@@ -165,7 +165,7 @@ export default function Header() {
         <div style={{ display:'flex', alignItems:'center', gap:6, flexShrink:0, minWidth:280, justifyContent:'flex-end' }}>
 
           <Link href="/reduceri" className="reduceri-animated">
-            <Icon name="percent" size={13} color="var(--red)"/>Reduceri
+            <Icon name="percent" size={13} color="white"/>Reduceri
           </Link>
 
           <Link href="/auth"
