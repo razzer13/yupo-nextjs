@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { CATEGORIES, getSaleProducts, getProductsByCategory, SITE_NAME } from '../../lib/utils';
 import ProductCard from '../../components/shop/ProductCard';
 import Icon from '../../components/ui/Icon';
+import { FeaturedProductPanel, NewsletterPanel } from '../../components/layout/RightPanels';
 
 export const metadata = {
   title: `${SITE_NAME} – Parfumuri Arabești Autentice & Beauty | Livrare 1-2 Zile România`,
@@ -80,80 +81,10 @@ function HeroBanner() {
 }
 
 function RightPanel() {
-  const saleProducts = getSaleProducts(3);
   return (
-    <div style={{ width:200, flexShrink:0, display:'flex', flexDirection:'column', gap:10 }}>
-      <div style={{ background:'white', border:'1px solid var(--border)', borderRadius:10,
-        padding:14, boxShadow:'var(--shadow)' }}>
-        <div style={{ fontWeight:700, fontSize:13, marginBottom:12,
-          display:'flex', alignItems:'center', gap:7 }}>
-          <Icon name="user" size={15} color="var(--g)"/>Bună ziua, Vizitator
-        </div>
-        {[
-          { icon:'truck', text:'Livrare Rapidă' },
-          { icon:'phone', text:'+40 787 301 034' },
-          { icon:'shield', text:'Plată Securizată' },
-          { icon:'refreshCw', text:'Retur Garantat' },
-        ].map(({ icon, text }) => (
-          <div key={text} style={{ display:'flex', alignItems:'center', gap:8,
-            fontSize:12, color:'var(--text2)', marginBottom:7 }}>
-            <Icon name={icon} size={12} color="var(--g)"/>{text}
-          </div>
-        ))}
-        <p style={{ fontSize:11, color:'var(--text3)', margin:'10px 0 12px',
-          lineHeight:1.5, borderTop:'1px solid var(--border)', paddingTop:10 }}>
-          Autentifică-te pentru a salva favoritele și istoricul comenzilor.
-        </p>
-        <div style={{ display:'flex', gap:7 }}>
-          <Link href="/auth"
-            style={{ flex:1, border:'1.5px solid var(--g)', color:'var(--g)',
-              borderRadius:8, padding:'8px 0', fontSize:11, fontWeight:700,
-              textDecoration:'none', display:'flex', alignItems:'center',
-              justifyContent:'center', gap:4 }}>
-            <Icon name="user" size={11} color="currentColor"/>Autentificare
-          </Link>
-          <Link href="/auth?tab=register"
-            style={{ flex:1, background:'var(--g)', color:'white', borderRadius:8,
-              padding:'8px 0', fontSize:11, fontWeight:700, textDecoration:'none',
-              display:'flex', alignItems:'center', justifyContent:'center', gap:4 }}>
-            <Icon name="plus" size={11} color="white"/>Cont Nou
-          </Link>
-        </div>
-      </div>
-      {saleProducts.length > 0 && (
-        <div style={{ background:'white', border:'1px solid var(--border)', borderRadius:10,
-          overflow:'hidden', boxShadow:'var(--shadow)' }}>
-          <div style={{ background:'var(--red)', padding:'8px 12px',
-            display:'flex', alignItems:'center', gap:6 }}>
-            <span style={{ fontSize:13 }}>🔥</span>
-            <span style={{ color:'white', fontWeight:700, fontSize:12 }}>Oferte Flash</span>
-          </div>
-          {saleProducts.map(p => (
-            <Link key={p.id} href={`/produs/${p.slug}`}
-              style={{ display:'flex', gap:9, padding:'9px 11px',
-                textDecoration:'none', borderBottom:'1px solid #f5f5f5' }}>
-              <div style={{ width:40, height:40, borderRadius:7, background:'#f5f5f5',
-                border:'1px solid var(--border)', overflow:'hidden', flexShrink:0 }}>
-                {p.image && <img src={p.image} alt={p.name}
-                  style={{ width:'100%', height:'100%', objectFit:'cover' }}/>}
-              </div>
-              <div style={{ minWidth:0 }}>
-                <div style={{ fontSize:11, fontWeight:500, color:'var(--text)',
-                  overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap',
-                  maxWidth:120, marginBottom:3 }}>{p.name}</div>
-                <div style={{ display:'flex', gap:5, alignItems:'center' }}>
-                  <span style={{ fontSize:12, fontWeight:800, color:'var(--red)' }}>
-                    {p.salePrice} lei
-                  </span>
-                  <span style={{ fontSize:10, color:'var(--text3)', textDecoration:'line-through' }}>
-                    {p.price} lei
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+    <div style={{ width:210, flexShrink:0, display:'flex', flexDirection:'column', gap:10 }}>
+      <FeaturedProductPanel/>
+      <NewsletterPanel/>
     </div>
   );
 }

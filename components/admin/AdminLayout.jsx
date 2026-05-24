@@ -9,6 +9,8 @@ const NAV = [
   { href:'/admin/produse', icon:'package', label:'Produse' },
   { href:'/admin/comenzi', icon:'shoppingBag', label:'Comenzi' },
   { href:'/admin/import', icon:'upload', label:'Import CSV' },
+  { href:'/admin/produs-vedeta', icon:'star', label:'Produs Vedeta' },
+  { href:'/admin/newsletter', icon:'mail', label:'Newsletter' },
   { href:'/admin/setari', icon:'settings', label:'Setări' },
 ];
 

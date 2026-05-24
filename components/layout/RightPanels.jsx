@@ -1,0 +1,150 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import Icon from '../ui/Icon';
+import { useFeatured } from './FeaturedContext';
+import { useCart } from './CartContext';
+import { useToast } from './ToastContext';
+import { getDiscountPct } from '../../lib/utils';
+
+// ─── Produs Vedeta ────────────────────────────────────────────────
+export function FeaturedProductPanel() {
+  const { featuredProduct: p } = useFeatured();
+  const { addToCart } = useCart();
+  const toast = useToast();
+  const [imgErr, setImgErr] = useState(false);
+
+  if (!p) return null;
+  const pct = getDiscountPct(p.price, p.salePrice);
+  const price = p.salePrice || p.price;
+
+  return (
+    <div style={{ background:'white', border:'1px solid var(--border)', borderRadius:10,
+      overflow:'hidden', boxShadow:'var(--shadow)' }}>
+      {/* Header */}
+      <div style={{ background:'linear-gradient(135deg,var(--g),#43a047)',
+        padding:'9px 14px', display:'flex', alignItems:'center', gap:7 }}>
+        <span style={{ fontSize:14 }}>⭐</span>
+        <span style={{ color:'white', fontWeight:700, fontSize:12 }}>Produsul Săptămânii</span>
+      </div>
+
+      {/* Imagine */}
+      <Link href={`/produs/${p.slug}`} style={{ display:'block',
+        background:'#f8f9fa', height:160, overflow:'hidden', position:'relative' }}>
+        {p.image && !imgErr
+          ? <img src={p.image} alt={p.name}
+              style={{ width:'100%', height:'100%', objectFit:'contain', padding:8 }}
+              onError={() => setImgErr(true)}/>
+          : <div style={{ width:'100%', height:'100%', display:'flex',
+              alignItems:'center', justifyContent:'center' }}>
+              <Icon name="tag" size={52} color="#c8e6c9"/>
+            </div>}
+        {p.salePrice && (
+          <span style={{ position:'absolute', top:8, left:8, background:'var(--red)',
+            color:'white', fontSize:10, fontWeight:800, padding:'3px 8px',
+            borderRadius:4 }}>-{pct}%</span>
+        )}
+      </Link>
+
+      {/* Info */}
+      <div style={{ padding:'10px 12px' }}>
+        <div style={{ fontSize:10, color:'var(--text3)', marginBottom:3,
+          textTransform:'uppercase', letterSpacing:'.07em' }}>{p.brand}</div>
+        <Link href={`/produs/${p.slug}`} style={{ textDecoration:'none' }}>
+          <div style={{ fontSize:12.5, fontWeight:600, color:'var(--text)',
+            marginBottom:7, lineHeight:1.4, display:'-webkit-box',
+            WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden',
+            minHeight:34 }}>{p.name}</div>
+        </Link>
+        <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:10 }}>
+          <span style={{ fontSize:18, fontWeight:800, color:'var(--g)' }}>{price} lei</span>
+          {p.salePrice && (
+            <span style={{ fontSize:12, color:'var(--text3)', textDecoration:'line-through' }}>
+              {p.price} lei
+            </span>
+          )}
+        </div>
+        <button
+          onClick={() => { addToCart(p); toast?.show(`✓ ${p.name.slice(0,25)}... adăugat!`); }}
+          style={{ width:'100%', background:'var(--g)', color:'white', border:'none',
+            borderRadius:8, padding:'9px 0', fontSize:12, fontWeight:700,
+            cursor:'pointer', display:'flex', alignItems:'center',
+            justifyContent:'center', gap:6 }}>
+          <Icon name="cart" size={13} color="white"/>Adaugă în coș
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Newsletter Panel ─────────────────────────────────────────────
+export function NewsletterPanel() {
+  const { newsletterTitle, newsletterDesc, addSubscriber } = useFeatured();
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [done, setDone] = useState(false);
+  const [err, setErr] = useState('');
+
+  const handleSubmit = () => {
+    if (!email.includes('@')) { setErr('Email invalid!'); return; }
+    addSubscriber(email, name);
+    setDone(true);
+  };
+
+  return (
+    <div style={{ background:'white', border:'1px solid var(--border)', borderRadius:10,
+      overflow:'hidden', boxShadow:'var(--shadow)' }}>
+      {/* Header */}
+      <div style={{ background:'linear-gradient(135deg,#1565c0,#1976d2)',
+        padding:'9px 14px', display:'flex', alignItems:'center', gap:7 }}>
+        <span style={{ fontSize:14 }}>📧</span>
+        <span style={{ color:'white', fontWeight:700, fontSize:12 }}>Newsletter</span>
+      </div>
+
+      <div style={{ padding:'14px 12px' }}>
+        {done ? (
+          <div style={{ textAlign:'center', padding:'10px 0' }}>
+            <div style={{ fontSize:32, marginBottom:8 }}>🎉</div>
+            <div style={{ fontWeight:700, fontSize:13, color:'var(--g)', marginBottom:6 }}>
+              Mulțumim că te-ai abonat!
+            </div>
+            <div style={{ fontSize:11, color:'var(--text3)', lineHeight:1.5 }}>
+              Vei primi în curând un email cu codul tău de reducere.
+            </div>
+          </div>
+        ) : (
+          <>
+            <div style={{ fontWeight:700, fontSize:13, marginBottom:5 }}>{newsletterTitle}</div>
+            <p style={{ fontSize:11, color:'var(--text2)', lineHeight:1.5, marginBottom:12 }}>
+              {newsletterDesc}
+            </p>
+            <input
+              value={name} onChange={e => setName(e.target.value)}
+              placeholder="Numele tău (opțional)"
+              style={{ width:'100%', border:'1.5px solid var(--border)', borderRadius:8,
+                padding:'8px 11px', fontSize:12, outline:'none', marginBottom:7,
+                color:'var(--text)', boxSizing:'border-box' }}/>
+            <input
+              value={email} onChange={e => { setEmail(e.target.value); setErr(''); }}
+              placeholder="Email-ul tău *"
+              type="email"
+              style={{ width:'100%', border:`1.5px solid ${err ? 'var(--red)' : 'var(--border)'}`,
+                borderRadius:8, padding:'8px 11px', fontSize:12, outline:'none',
+                marginBottom:7, color:'var(--text)', boxSizing:'border-box' }}/>
+            {err && <div style={{ fontSize:11, color:'var(--red)', marginBottom:7 }}>{err}</div>}
+            <button onClick={handleSubmit}
+              style={{ width:'100%', background:'#1565c0', color:'white', border:'none',
+                borderRadius:8, padding:'9px 0', fontSize:12, fontWeight:700,
+                cursor:'pointer', display:'flex', alignItems:'center',
+                justifyContent:'center', gap:6 }}>
+              <Icon name="mail" size={13} color="white"/>Mă abonez + 10% reducere
+            </button>
+            <div style={{ fontSize:10, color:'var(--text3)', textAlign:'center', marginTop:8 }}>
+              Fără spam. Te poți dezabona oricând.
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
