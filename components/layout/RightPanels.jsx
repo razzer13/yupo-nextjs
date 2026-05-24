@@ -198,7 +198,7 @@ export function NewsletterPanel() {
                 color:'var(--text)', boxSizing:'border-box' }}/>
             <input value={email} onChange={e => { setEmail(e.target.value); setErr(''); }}
               placeholder="Email-ul tău *" type="email"
-              style={{ width:'100%', border:`1.5px solid ${err?'var(--red)":'var(--border)'}`,
+              style={{ width:'100%', border:`1.5px solid ${err ? 'var(--red)' : 'var(--border)'}`, 
                 borderRadius:8, padding:'8px 11px', fontSize:12, outline:'none',
                 marginBottom:7, color:'var(--text)', boxSizing:'border-box' }}/>
             {err && <div style={{ fontSize:11, color:'var(--red)', marginBottom:7 }}>{err}</div>}
