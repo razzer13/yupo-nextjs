@@ -186,7 +186,7 @@ export default function ComenziAdmin() {
             boxShadow:'0 20px 60px rgba(0,0,0,.22)' }}>
             <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',
               marginBottom:20,paddingBottom:14,borderBottom:'1px solid var(--border)' }}>
-              <span style={{ fontWeight:800,fontSize:18,color:'var(--g)' }}>{selected.id}</span>
+              <span style={{ fontWeight:800,fontsize={18},color:'var(--g)' }}>{selected.id}</span>
               <button onClick={()=>setSelected(null)}
                 style={{ background:'none',border:'none',cursor:'pointer',color:'var(--text3)' }}>
                 <Icon name="x" size={18} color="currentColor"/>
