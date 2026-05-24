@@ -303,7 +303,7 @@ export default function ImportAdmin() {
             <div style={{ display:'flex',gap:8,justifyContent:'center',marginTop:14,flexWrap:'wrap' }}>
               {['WooCommerce CSV','CSV Personalizat','UTF-8','Diacritice RO'].map(t=>(
                 <span key={t} style={{ background:'#f5f5f5',border:'1px solid var(--border)',
-                  borderRadius:6,padding:'3px 10px',fontsize={11},fontWeight:600,color:'var(--text2)' }}>{t}</span>
+                  borderRadius:6,padding:'3px 10px',fontSize:11,fontWeight:600,color:'var(--text2)' }}>{t}</span>
               ))}
             </div>
           </div>
@@ -341,7 +341,7 @@ export default function ImportAdmin() {
                   <select value={mapping[field.key]||''}
                     onChange={e=>setMapping(m=>({...m,[field.key]:e.target.value||null}))}
                     style={{ border:`1.5px solid ${mapping[field.key]?'var(--g)':'var(--border)'}`,
-                      borderRadius:7,padding:'7px 11px',fontsize={11},outline:'none',
+                      borderRadius:7,padding:'7px 11px',fontSize:11,outline:'none',
                       background:mapping[field.key]?'var(--g3)':'white',cursor:'pointer',width:'100%' }}>
                     <option value="">— Nu importa —</option>
                     {csvData.headers.map(h=><option key={h} value={h}>{h}</option>)}
@@ -366,7 +366,7 @@ export default function ImportAdmin() {
                   padding:'10px 12px',border:'1.5px solid var(--border)',borderRadius:8,marginBottom:8 }}>
                   <div>
                     <div style={{fontSize:13,fontWeight:600}}>{label}</div>
-                    <div style={{fontsize={11},color:'var(--text3)'}}>{sub}</div>
+                    <div style={{fontSize:11,color:'var(--text3)'}}>{sub}</div>
                   </div>
                   <button className={`toggle ${options[key]?'on':'off'}`}
                     style={{ width:38,height:20,borderRadius:10,border:'none',cursor:'pointer',
@@ -383,7 +383,7 @@ export default function ImportAdmin() {
                 padding:'10px 12px',border:'1.5px solid var(--border)',borderRadius:8 }}>
                 <div>
                   <div style={{fontSize:13,fontWeight:600}}>Brand implicit</div>
-                  <div style={{fontsize={11},color:'var(--text3)'}}>Dacă brandul lipsește din CSV</div>
+                  <div style={{fontSize:11,color:'var(--text3)'}}>Dacă brandul lipsește din CSV</div>
                 </div>
                 <input value={options.defaultBrand} onChange={e=>setOptions(o=>({...o,defaultBrand:e.target.value}))}
                   style={{ border:'1.5px solid var(--border)',borderRadius:7,padding:'6px 10px',
@@ -444,10 +444,10 @@ export default function ImportAdmin() {
                           color:p.stock>0?'var(--g)':'var(--text3)',fontSize:12}}>{p.stock}</td>
                         <td style={{padding:'9px 12px'}}>
                           {ok
-                            ? <span style={{color:'var(--g)',fontsize={11},fontWeight:700,display:'flex',alignItems:'center',gap:4}}>
+                            ? <span style={{color:'var(--g)',fontSize:11,fontWeight:700,display:'flex',alignItems:'center',gap:4}}>
                                 <Icon name="check" size={11} color="var(--g)"/>OK
                               </span>
-                            : <span style={{color:'var(--red)',fontsize={11},fontWeight:700}}>Eroare</span>}
+                            : <span style={{color:'var(--red)',fontSize:11,fontWeight:700}}>Eroare</span>}
                         </td>
                       </tr>
                     );
@@ -522,7 +522,7 @@ export default function ImportAdmin() {
                   </div>
                 ))}
                 {invalid.length>12&&(
-                  <div style={{padding:'7px 12px',fontsize={11},color:'var(--text3)'}}>
+                  <div style={{padding:'7px 12px',fontSize:11,color:'var(--text3)'}}>
                     ... și alte {invalid.length-12} erori
                   </div>
                 )}
@@ -543,7 +543,7 @@ export default function ImportAdmin() {
                   display:'flex',alignItems:'center',gap:6}}>
                   {cat}
                   <span style={{background:'white',borderRadius:20,padding:'0 6px',
-                    fontsize={11},color:'var(--text2)',fontWeight:700}}>{count}</span>
+                    fontSize:11,color:'var(--text2)',fontWeight:700}}>{count}</span>
                 </div>
               ))}
             </div>
