@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { CATEGORIES, getSaleProducts, getProductsByCategory, SITE_NAME } from '../../lib/utils';
 import ProductCard from '../../components/shop/ProductCard';
 import Icon from '../../components/ui/Icon';
-import { FeaturedProductPanel, NewsletterPanel } from '../../components/layout/RightPanels';
+import RightPanel from '../../components/layout/RightPanel';
 
 export const metadata = {
   title: `${SITE_NAME} – Parfumuri Arabești Autentice & Beauty | Livrare 1-2 Zile România`,
@@ -99,14 +99,7 @@ function HeroBanner() {
   );
 }
 
-function RightPanel() {
-  return (
-    <div style={{ width:210, flexShrink:0, display:'flex', flexDirection:'column', gap:10 }}>
-      <FeaturedProductPanel/>
-      <NewsletterPanel/>
-    </div>
-  );
-}
+
 
 function PromoStrip() {
   const items = [
